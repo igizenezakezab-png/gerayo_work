@@ -46,7 +46,7 @@ export default function DriverDashboard() {
     }
     try {
       setCalcLoading(true)
-      const { data } = await api.post('/price/calculate', {
+      const { data } = await api.post('/api/price/calculate', {
         currentLocation: form.currentLocation,
         destination: form.destination,
         vehicleType: form.vehicleType,
@@ -67,7 +67,7 @@ export default function DriverDashboard() {
   useEffect(() => {
     ;(async () => {
       try {
-        const { data } = await api.get(`/drivers/${user._id}`)
+        const { data } = await api.get(`/api/drivers/${user._id}`)
         if (data) {
           setForm((prev) => ({
             ...prev,
@@ -91,7 +91,7 @@ export default function DriverDashboard() {
   const fetchMatches = async () => {
     try {
       setLoading(true)
-      const { data } = await api.get(`/drivers/${user._id}/matches`)
+      const { data } = await api.get(`/api/drivers/${user._id}/matches`)
       setMatches(data.matches || [])
     } catch {
     } finally {
@@ -106,7 +106,7 @@ export default function DriverDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await api.put(`/drivers/${user._id}`, form)
+      const { data } = await api.put(`/api/drivers/${user._id}`, form)
       setMessage('Service details saved successfully!')
       setPriceInfo({ price: data.priceInfo?.price || 0, distance: priceInfo.distance, rate: priceInfo.rate })
       setMatches(data.matches || [])

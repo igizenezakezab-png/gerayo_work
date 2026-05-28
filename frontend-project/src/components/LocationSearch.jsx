@@ -17,7 +17,7 @@ export default function LocationSearch({ value, onChange, placeholder, title, on
     if (query.trim().length < 2) { setSuggestions([]); return }
     const timer = setTimeout(async () => {
       try {
-        const { data } = await api.get(`/location/search?q=${encodeURIComponent(query)}`)
+        const { data } = await api.get(`/api/location/search?q=${encodeURIComponent(query)}`)
         setSuggestions(data.results || [])
         setOpen(true)
       } catch { setSuggestions([]) }
@@ -34,7 +34,7 @@ export default function LocationSearch({ value, onChange, placeholder, title, on
   const geocodeText = async (text) => {
     if (!text || text.trim().length < 2) return
     try {
-      const { data } = await api.get(`/location/geocode?q=${encodeURIComponent(text)}`)
+      const { data } = await api.get(`/api/location/geocode?q=${encodeURIComponent(text)}`)
       if (data.latitude && data.longitude) {
         onChange(text, data.latitude, data.longitude)
       }

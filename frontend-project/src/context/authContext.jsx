@@ -23,13 +23,13 @@ export function AuthProvider({ children }) {
   }
 
   const login = async (role, email, password) => {
-    const { data } = await api.post(`/auth/${role}/login`, { email, password })
+    const { data } = await api.post(`/api/auth/${role}/login`, { email, password })
     saveSession(data)
     return data
   }
 
   const register = async (role, payload) => {
-    const { data } = await api.post(`/auth/${role}/register`, payload)
+    const { data } = await api.post(`/api/auth/${role}/register`, payload)
     saveSession(data)
     return data
   }

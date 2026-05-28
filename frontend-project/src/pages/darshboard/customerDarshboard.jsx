@@ -46,7 +46,7 @@ export default function CustomerDashboard() {
     }
     try {
       setCalcLoading(true)
-      const { data } = await api.post('/price/calculate', {
+      const { data } = await api.post('/api/price/calculate', {
         currentLocation: form.currentLocation,
         destination: form.destination,
         vehicleType: form.vehicleChoice,
@@ -67,7 +67,7 @@ export default function CustomerDashboard() {
   useEffect(() => {
     ;(async () => {
       try {
-        const { data } = await api.get(`/customers/${user._id}`)
+        const { data } = await api.get(`/api/customers/${user._id}`)
         if (data) {
           setForm((prev) => ({
             ...prev,
@@ -91,7 +91,7 @@ export default function CustomerDashboard() {
   const fetchMatches = async () => {
     try {
       setLoading(true)
-      const { data } = await api.get(`/customers/${user._id}/matches`)
+      const { data } = await api.get(`/api/customers/${user._id}/matches`)
       setMatches(data.matches || [])
     } catch {
     } finally {
@@ -106,7 +106,7 @@ export default function CustomerDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await api.put(`/customers/${user._id}`, form)
+      const { data } = await api.put(`/api/customers/${user._id}`, form)
       setMessage('Trip details saved successfully!')
       setPriceInfo({ price: data.priceInfo?.price || 0, distance: priceInfo.distance, rate: priceInfo.rate })
       setMatches(data.matches || [])
