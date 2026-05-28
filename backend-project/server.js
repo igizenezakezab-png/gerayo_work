@@ -2,8 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-if (!process.env.VERCEL) {
-  require('dotenv').config();
+require('dotenv').config();
+
+if (!process.env.JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is not set.');
+  process.exit(1);
 }
 
 const app = express();
@@ -26,15 +29,15 @@ app.use('/api/customers', customerRoutes);
 app.use('/api/price', priceRoutes);
 app.use('/api/location', locationRoutes);
 
-module.exports = app;
-
-if (!process.env.VERCEL) {
+if (process.env.MONGO_URL) {
   mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('MongoDB Connected'))
-    .catch((err) => console.log(err));
-
-  const PORT = process.env.PORT || 2000;
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
+    .catch((err) => console.log('MongoDB connection error:', err.message));
+} else {
+  console.log('MONGO_URL not set — skipping database connection');
 }
+
+const PORT = process.env.PORT || 2000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
