@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  background: #000000;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 20px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.home::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at 30% 50%, rgba(0, 200, 83, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 70% 50%, rgba(0, 150, 36, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.home-hero {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.home-brand { margin-bottom: 16px; }
+
+.home-brand-icon {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: #000000;
+  font-family: 'Syne', sans-serif;
+}
+
+.home-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+}
+
+.home-tagline {
+  color: #888;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.home-accounts {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.account-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.account-card:hover {
+  transform: translateY(-4px);
+}
+
+.account-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background: #f5f7fa;
+}
+
+.account-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.account-card p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-signin,
+.btn-register {
+  display: block;
+  padding: 13px 0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-signin {
+  background: #000000;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-signin:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-register {
+  background: transparent;
+  color: #000;
+  border: 2px solid #e0e0e0;
+}
+
+.btn-register:hover {
+  border-color: #00c853;
+  color: #00c853;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .home { gap: 32px; }
+  .home-hero h1 { font-size: 36px; }
+  .account-card { width: 100%; max-width: 380px; }
+}
