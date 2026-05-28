@@ -1,18 +1,16 @@
-require('dotenv').config(); // ← MOVED TO TOP
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
+if (!process.env.VERCEL) {
+  require('dotenv').config();
+}
 
 const app = express();
 
 const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:5173'].filter(Boolean)
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
-
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log('MongoDB Connected'))
-  .catch((err) => console.log(err));
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -28,8 +26,15 @@ app.use('/api/customers', customerRoutes);
 app.use('/api/price', priceRoutes);
 app.use('/api/location', locationRoutes);
 
-const PORT = process.env.PORT || 2000;
+module.exports = app;
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log('MongoDB Connected'))
+    .catch((err) => console.log(err));
+
+  const PORT = process.env.PORT || 2000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
